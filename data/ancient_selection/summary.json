@@ -1,0 +1,18 @@
+{
+  "anc_known_rows": 7740391,
+  "autosomal_snp_rows": 8074573,
+  "continuous_rows": 2000,
+  "control_rows": 1500,
+  "full_rows": 8074092,
+  "liftover_in": 8074573,
+  "liftover_mapped": 8074523,
+  "liftover_unmapped": 50,
+  "pilot_rows": 5000,
+  "s_max": 0.063378873,
+  "s_min": -0.056680718,
+  "selected_rows": 1500,
+  "source_rows": 9739624,
+  "source_snp_rows": 8074573,
+  "test_rows": 502,
+  "train_rows": 4498
+}
