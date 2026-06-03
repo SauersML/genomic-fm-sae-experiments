@@ -1,0 +1,108 @@
+{
+  "title": "aim1_sv :: pair_splice_vs_intergenic_lenmatched",
+  "separation": {
+    "task": "classification",
+    "n_samples": 106,
+    "n_features": 105,
+    "n_groups": 24,
+    "n_splits": 5,
+    "split_strategy": "GroupKFold",
+    "features": {
+      "l2_logreg": {
+        "auroc": 0.5215379138483447,
+        "auroc_ci95": [
+          0.42442035850443244,
+          0.6265006775067752
+        ],
+        "auprc": 0.5037615762595982,
+        "auprc_ci95": [
+          0.39242346235089937,
+          0.6676706501352083
+        ]
+      },
+      "hist_gbt": {
+        "auroc": 0.5895336418654326,
+        "auroc_ci95": [
+          0.48922299291617477,
+          0.7062165431792399
+        ],
+        "auprc": 0.6091657862782021,
+        "auprc_ci95": [
+          0.49027768437396235,
+          0.7435796884028177
+        ]
+      }
+    },
+    "covariates_only": {
+      "l2_logreg": {
+        "auroc": 0.9747241011035956,
+        "auroc_ci95": [
+          0.9435165041260316,
+          0.9970886450941563
+        ],
+        "auprc": 0.9773531391054866,
+        "auprc_ci95": [
+          0.9457541983482002,
+          0.9966480740382335
+        ]
+      },
+      "hist_gbt": {
+        "auroc": 0.9645781416874333,
+        "auroc_ci95": [
+          0.9115874701154535,
+          0.9933527368476348
+        ],
+        "auprc": 0.9470539759158325,
+        "auprc_ci95": [
+          0.8561101346864548,
+          0.99389430891699
+        ]
+      }
+    },
+    "features_residualized": {
+      "l2_logreg": {
+        "auroc": 0.0441438234247063,
+        "auroc_ci95": [
+          0.004508184523809525,
+          0.09695187818202496
+        ],
+        "auprc": 0.315640319068321,
+        "auprc_ci95": [
+          0.232145278013962,
+          0.41517875054112036
+        ]
+      },
+      "hist_gbt": {
+        "auroc": 0.3460306158775365,
+        "auroc_ci95": [
+          0.22856775774826057,
+          0.5018379706533775
+        ],
+        "auprc": 0.40988509578347654,
+        "auprc_ci95": [
+          0.299372144197979,
+          0.5976428095476279
+        ]
+      }
+    }
+  },
+  "permutation_test": {
+    "metric": "auroc",
+    "model": "l2_logreg",
+    "observed": 0.5215379138483447,
+    "null_mean": 0.32443965433300653,
+    "null_std": 0.08446884904504874,
+    "n_perm_effective": 1000,
+    "p_value": 0.013986013986013986,
+    "permute_within_groups": true
+  },
+  "n_significant_features_fdr05": 0,
+  "plots": [
+    "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched/pca.png",
+    "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched/umap.png",
+    "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched/roc.png",
+    "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched/calibration.png",
+    "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched/volcano.png",
+    "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched/top_features.png"
+  ]
+}
