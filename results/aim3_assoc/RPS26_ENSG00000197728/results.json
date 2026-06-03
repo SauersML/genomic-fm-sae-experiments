@@ -1,0 +1,107 @@
+{
+  "title": "RPS26|ENSG00000197728 | SAE-features vs ancestry",
+  "separation": {
+    "task": "regression",
+    "n_samples": 255,
+    "n_features": 128,
+    "n_groups": 255,
+    "n_splits": 5,
+    "split_strategy": "GroupKFold",
+    "features": {
+      "ridge": {
+        "r2": 0.6074398635117255,
+        "r2_ci95": [
+          0.5035922762343096,
+          0.6849893566572105
+        ],
+        "spearman": 0.7502848768389299,
+        "spearman_ci95": [
+          0.676717329299717,
+          0.8038962799432011
+        ]
+      },
+      "hist_gbt": {
+        "r2": 0.7252022049729158,
+        "r2_ci95": [
+          0.6515561448414621,
+          0.7865884961140444
+        ],
+        "spearman": 0.8249140146833573,
+        "spearman_ci95": [
+          0.7744269471577341,
+          0.8613798152616916
+        ]
+      }
+    },
+    "covariates_only": {
+      "ridge": {
+        "r2": 0.03361056788073069,
+        "r2_ci95": [
+          -0.013583393841379753,
+          0.08274387617040344
+        ],
+        "spearman": 0.04864588221382474,
+        "spearman_ci95": [
+          -0.0717728485415194,
+          0.16432685878337705
+        ]
+      },
+      "hist_gbt": {
+        "r2": 0.033592758300699854,
+        "r2_ci95": [
+          -0.013854828817223507,
+          0.08288475712601569
+        ],
+        "spearman": 0.04864588221382474,
+        "spearman_ci95": [
+          -0.0717728485415194,
+          0.16432685878337705
+        ]
+      }
+    },
+    "features_residualized": {
+      "ridge": {
+        "r2": -1.9768661091822777,
+        "r2_ci95": [
+          -3.5278541594673545,
+          -0.6674684806510565
+        ],
+        "spearman": 0.5618971300718216,
+        "spearman_ci95": [
+          0.4446996655898146,
+          0.6597944961810673
+        ]
+      },
+      "hist_gbt": {
+        "r2": 0.7155765213768412,
+        "r2_ci95": [
+          0.6386952937128018,
+          0.7790342091388588
+        ],
+        "spearman": 0.8176460816828702,
+        "spearman_ci95": [
+          0.760326971983596,
+          0.8535987140806504
+        ]
+      }
+    }
+  },
+  "permutation_test": {
+    "metric": "spearman",
+    "model": "ridge",
+    "observed": 0.7502848768389299,
+    "null_mean": -0.012916385206816332,
+    "null_std": 0.07755544235257705,
+    "n_perm_effective": 500,
+    "p_value": 0.001996007984031936,
+    "permute_within_groups": true,
+    "permutation_unit": "group"
+  },
+  "n_significant_features_fdr05": 82,
+  "plots": [
+    "/Users/user/bio-interp-experiments/results/aim3_assoc/RPS26_ENSG00000197728/pca.png",
+    "/Users/user/bio-interp-experiments/results/aim3_assoc/RPS26_ENSG00000197728/umap.png",
+    "/Users/user/bio-interp-experiments/results/aim3_assoc/RPS26_ENSG00000197728/volcano.png",
+    "/Users/user/bio-interp-experiments/results/aim3_assoc/RPS26_ENSG00000197728/top_features.png"
+  ]
+}

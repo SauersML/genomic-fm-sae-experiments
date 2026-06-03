@@ -1,0 +1,117 @@
+{
+  "svd_composition": [
+    {
+      "component": "svd_0",
+      "composition_r2": 0.37684867035603353,
+      "explained_variance_ratio": 0.15910875797271729
+    },
+    {
+      "component": "svd_1",
+      "composition_r2": 0.7592472769461142,
+      "explained_variance_ratio": 0.26357221603393555
+    },
+    {
+      "component": "svd_2",
+      "composition_r2": 0.11683456963749927,
+      "explained_variance_ratio": 0.10367172956466675
+    },
+    {
+      "component": "svd_3",
+      "composition_r2": 0.7222101237295935,
+      "explained_variance_ratio": 0.08335363864898682
+    },
+    {
+      "component": "svd_4",
+      "composition_r2": 0.0977749626747273,
+      "explained_variance_ratio": 0.0709947794675827
+    },
+    {
+      "component": "svd_5",
+      "composition_r2": 0.04646312460944413,
+      "explained_variance_ratio": 0.06422115862369537
+    }
+  ],
+  "svd_variance_sum10": 0.8772563338279724,
+  "sparsity": [
+    {
+      "aim": "Aim1",
+      "median_nonzero": 4438.5,
+      "mean_nonzero": 4358.548571428571
+    },
+    {
+      "aim": "Aim2",
+      "median_nonzero": 4918.5,
+      "mean_nonzero": 4812.534166666666
+    },
+    {
+      "aim": "Aim3",
+      "median_nonzero": 4861.5,
+      "mean_nonzero": 4773.478431372549
+    }
+  ],
+  "top_feature_overlap": {
+    "Aim1_Aim2_top10_overlap": 7,
+    "Aim1_Aim3_top10_overlap": 7,
+    "Aim2_Aim3_top10_overlap": 10
+  },
+  "aim1_delta_magnitude": {
+    "kruskal_p": 1.5283562859735866e-08,
+    "coding_vs_other_mwu_p": 4.54508395364428e-08
+  },
+  "aim2_sweeps_covariate_path": [
+    {
+      "covariates_added": "none",
+      "feature_plus_covariate_auroc": 0.6241888888888889
+    },
+    {
+      "covariates_added": "gc",
+      "feature_plus_covariate_auroc": 0.6242111111111112
+    },
+    {
+      "covariates_added": "gc_repeat",
+      "feature_plus_covariate_auroc": 0.6239888888888889
+    },
+    {
+      "covariates_added": "gc_repeat_gene",
+      "feature_plus_covariate_auroc": 0.6256444444444446
+    },
+    {
+      "covariates_added": "gc_repeat_gene_mappability",
+      "feature_plus_covariate_auroc": 0.6206555555555555
+    }
+  ],
+  "aim3_features_vs_altcount": [
+    {
+      "gene": "C17orf97|ENSG00000187624",
+      "features_minus_altcount_heldout_spearman": -0.10208154464135732
+    },
+    {
+      "gene": "ERAP2|ENSG00000164308",
+      "features_minus_altcount_heldout_spearman": -0.2371369503634007
+    },
+    {
+      "gene": "GSTM1|ENSG00000134184",
+      "features_minus_altcount_heldout_spearman": 0.004141976016677179
+    },
+    {
+      "gene": "PEX6|ENSG00000124587",
+      "features_minus_altcount_heldout_spearman": 0.06684450568601785
+    },
+    {
+      "gene": "POMZP3|ENSG00000146707",
+      "features_minus_altcount_heldout_spearman": 0.37633689300861106
+    },
+    {
+      "gene": "RPS26|ENSG00000197728",
+      "features_minus_altcount_heldout_spearman": 0.09713806365719158
+    },
+    {
+      "gene": "SLFN5|ENSG00000166750",
+      "features_minus_altcount_heldout_spearman": -0.016642969041028466
+    },
+    {
+      "gene": "ZNF266|ENSG00000174652",
+      "features_minus_altcount_heldout_spearman": -0.002243852270975344
+    }
+  ]
+}
