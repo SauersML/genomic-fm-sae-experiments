@@ -1,57 +1,155 @@
 {
-  "n_inversion_alleles": 700,
-  "n_indel_aim1": 700,
-  "inversion_consequence_counts": {
-    "regulatory": 168,
-    "splice": 162,
-    "cds": 152,
-    "intergenic": 112,
-    "intronic": 106
-  },
-  "inversion_type_allele_counts": {
-    "ins": 359,
-    "del": 300,
-    "mnp": 41
-  },
-  "metrics": [
-    {
-      "task": "inversion_vs_indel",
-      "metric": "AUROC",
-      "score": 0.5980530612244898,
-      "n_scored": 1400,
-      "n_splits": 5
+  "aim1_indel_comparison": {
+    "DEL": {
+      "n_0p5_to_8kb": 102,
+      "pooled_l2_ci95": [
+        0.10460032381336479,
+        0.12187866175766378
+      ],
+      "pooled_l2_mean": 0.11302506923675537
     },
-    {
-      "task": "inversion_coding_disrupting",
-      "metric": "AUROC",
-      "score": 0.4788703343123989,
-      "n_scored": 700,
-      "n_splits": 5
-    },
-    {
-      "task": "inversion_log_length",
-      "metric": "R2",
-      "score": -1.4487919633179605,
-      "n_scored": 700,
-      "n_splits": 5
+    "INS": {
+      "n_0p5_to_8kb": 40,
+      "pooled_l2_ci95": [
+        0.1713334638206288,
+        0.22416807995177807
+      ],
+      "pooled_l2_mean": 0.19740252196788788
     }
+  },
+  "chunk_tokens": 256,
+  "delta_profile": {
+    "breakpoint_width_tokens": 64,
+    "mean_l1_breakpoint": 35.527415889769564,
+    "mean_l1_flanks": 4.42707169645576,
+    "mean_l1_interior_mid": 50.87960911576466,
+    "n_breakpoint_tokens": 77400,
+    "top_features": [
+      29844,
+      17323,
+      26395,
+      15809,
+      13657,
+      5814,
+      32710,
+      24144,
+      6002,
+      5388,
+      100,
+      8044,
+      26443,
+      16151,
+      26750,
+      18982,
+      32713,
+      6483,
+      872,
+      1667
+    ]
+  },
+  "model": "evo2_7b",
+  "n_synthetic_windows": 300,
+  "real_inversions": {
+    "control_bp_l2_mean": 4.155171866416931,
+    "n_clean": 50,
+    "n_tested": 50,
+    "paired_diff_ci95": [
+      -0.4343471598625183,
+      0.18873084402084336
+    ],
+    "paired_diff_mean": -0.1195688533782959,
+    "paired_signflip_p": 0.46650669866026795,
+    "real_bp_l2_mean": 4.035603013038635,
+    "source_status": {
+      "attempted": true,
+      "geometry_note": "follow-up used BED span=end-start for exact 8 kb windows; original SVLEN-field geometry produced 8001 bp windows for many records",
+      "n_clean": 50,
+      "n_tested": 50,
+      "source": "https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/genome_sv/gnomad.v4.1.sv.non_neuro_controls.sites.bed.gz"
+    }
+  },
+  "runtime_seconds": 1896.7,
+  "sae": "Goodfire/Evo-2-Layer-26-Mixed layer 26",
+  "sae_dtype": "bfloat16",
+  "sample_metadata": {
+    "genic_windows": 150,
+    "intergenic_windows": 150,
+    "mean_gc": 0.4038958333333333,
+    "mean_repeat_frac": 0.4980495833333333
+  },
+  "seed": 2603,
+  "size_dependence": {
+    "1000": {
+      "n": 300,
+      "pooled_l1_ci95": [
+        1.5174122168521087,
+        1.6334747332135837
+      ],
+      "pooled_l1_mean": 1.574232450723648,
+      "pooled_l2_ci95": [
+        0.08086609706965586,
+        0.09081971480480085
+      ],
+      "pooled_l2_mean": 0.08562596570079525
+    },
+    "2000": {
+      "n": 300,
+      "pooled_l1_ci95": [
+        2.2654692462384705,
+        2.4655322679231566
+      ],
+      "pooled_l1_mean": 2.3658430220683417,
+      "pooled_l2_ci95": [
+        0.1246036125011742,
+        0.14249173884000627
+      ],
+      "pooled_l2_mean": 0.13320477567613126
+    },
+    "4000": {
+      "n": 300,
+      "pooled_l1_ci95": [
+        3.5444387296934923,
+        3.839356648524602
+      ],
+      "pooled_l1_mean": 3.6877359918753307,
+      "pooled_l2_ci95": [
+        0.1949913359861821,
+        0.2239672589680801
+      ],
+      "pooled_l2_mean": 0.20913242019712924
+    }
+  },
+  "sizes": [
+    1000,
+    2000,
+    4000
   ],
-  "n_inv_vs_indel_bh05": 5819,
-  "n_inv_coding_bh05": 5662,
-  "n_inv_length_bh05": 3142,
-  "n_inv_af_bh05": 1902,
-  "f15532": {
-    "inv_mean": 0.0010394144337624311,
-    "inv_median": 0.0009567447705194354,
-    "del_mean": 0.0012725741835311055,
-    "ins_mean": -0.002166790422052145,
-    "inv_vs_indel_feature_row": {
-      "feature": "f15532",
-      "feature_idx": 15532,
-      "inv_vs_indel_mean_diff_raw": 0.0011180193312507723,
-      "inv_vs_indel_cohen_d": 0.045887738399945116,
-      "p": 0.390888913467567,
-      "q": 1.0
-    }
-  }
+  "strand_symmetry": {
+    "active_pearson_ci95": [
+      0.9949437441195238,
+      0.996257067354527
+    ],
+    "active_pearson_mean": 0.9956664461977237,
+    "active_spearman_ci95": [
+      0.7207187044805224,
+      0.7388893548389307
+    ],
+    "active_spearman_mean": 0.729638269889319,
+    "matched_token_cosine_ci95": [
+      0.49027094317603115,
+      0.4989624288539886
+    ],
+    "matched_token_cosine_mean": 0.49467887082099926,
+    "pearson_ci95": [
+      0.9950888584585117,
+      0.9963547020779301
+    ],
+    "pearson_mean": 0.9957184892502096,
+    "spearman_ci95": [
+      0.7829176471638827,
+      0.7925740564438227
+    ],
+    "spearman_mean": 0.7878959676318948
+  },
+  "window_length": 8000
 }

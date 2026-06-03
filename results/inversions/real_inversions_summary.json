@@ -1,0 +1,13 @@
+{
+  "control_bp_l2_mean": 4.155171866416931,
+  "n_clean": 50,
+  "n_tested": 50,
+  "paired_diff_ci95": [
+    -0.4343471598625183,
+    0.18873084402084336
+  ],
+  "paired_diff_mean": -0.1195688533782959,
+  "paired_signflip_p": 0.46650669866026795,
+  "real_bp_l2_mean": 4.035603013038635,
+  "source": "https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/genome_sv/gnomad.v4.1.sv.non_neuro_controls.sites.bed.gz"
+}
