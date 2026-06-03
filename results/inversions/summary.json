@@ -1,0 +1,57 @@
+{
+  "n_inversion_alleles": 700,
+  "n_indel_aim1": 700,
+  "inversion_consequence_counts": {
+    "regulatory": 168,
+    "splice": 162,
+    "cds": 152,
+    "intergenic": 112,
+    "intronic": 106
+  },
+  "inversion_type_allele_counts": {
+    "ins": 359,
+    "del": 300,
+    "mnp": 41
+  },
+  "metrics": [
+    {
+      "task": "inversion_vs_indel",
+      "metric": "AUROC",
+      "score": 0.5980530612244898,
+      "n_scored": 1400,
+      "n_splits": 5
+    },
+    {
+      "task": "inversion_coding_disrupting",
+      "metric": "AUROC",
+      "score": 0.4788703343123989,
+      "n_scored": 700,
+      "n_splits": 5
+    },
+    {
+      "task": "inversion_log_length",
+      "metric": "R2",
+      "score": -1.4487919633179605,
+      "n_scored": 700,
+      "n_splits": 5
+    }
+  ],
+  "n_inv_vs_indel_bh05": 5819,
+  "n_inv_coding_bh05": 5662,
+  "n_inv_length_bh05": 3142,
+  "n_inv_af_bh05": 1902,
+  "f15532": {
+    "inv_mean": 0.0010394144337624311,
+    "inv_median": 0.0009567447705194354,
+    "del_mean": 0.0012725741835311055,
+    "ins_mean": -0.002166790422052145,
+    "inv_vs_indel_feature_row": {
+      "feature": "f15532",
+      "feature_idx": 15532,
+      "inv_vs_indel_mean_diff_raw": 0.0011180193312507723,
+      "inv_vs_indel_cohen_d": 0.045887738399945116,
+      "p": 0.390888913467567,
+      "q": 1.0
+    }
+  }
+}

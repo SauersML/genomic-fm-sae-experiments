@@ -153,8 +153,8 @@ def plot_all(inv_x: np.ndarray, inv_lab: pd.DataFrame, sv_x: np.ndarray, sv_lab:
 
     kind = np.array(["INV"] * len(inv_x) + sv_lab["svtype"].astype(str).to_list())
     colors = {"INV": "#8E24AA", "DEL": "#0B6E99", "INS": "#F26A4F"}
-    fig = plt.figure(figsize=(16, 11), dpi=190)
-    gs = fig.add_gridspec(2, 2, height_ratios=[1.05, 1.0], width_ratios=[1.08, 1.0], hspace=0.34, wspace=0.28)
+    fig = plt.figure(figsize=(17, 11), dpi=190)
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.05, 1.0], width_ratios=[1.02, 1.05], hspace=0.36, wspace=0.30)
 
     ax = fig.add_subplot(gs[0, 0])
     for k in ["DEL", "INS", "INV"]:
@@ -184,14 +184,18 @@ def plot_all(inv_x: np.ndarray, inv_lab: pd.DataFrame, sv_x: np.ndarray, sv_lab:
     ax.set_ylabel("-log10 BH q")
 
     ax = fig.add_subplot(gs[1, 0])
-    top = inv_vs_sv.head(20).iloc[::-1]
+    top = inv_vs_sv.head(12).iloc[::-1]
     vals = top[xcol].to_numpy()
     bar_colors = np.where(vals >= 0, "#8E24AA", "#0B6E99")
     ax.barh(top["feature"], vals, color=bar_colors, height=0.72)
+    lim = max(0.85, float(np.nanmax(np.abs(vals))) * 1.12)
+    ax.set_xlim(-lim, lim * 1.34)
+    q_x = lim * 1.05
+    ax.text(q_x, len(top) - 0.05, "BH q", ha="left", va="bottom",
+            fontsize=8.5, color="#606A73", weight="bold")
     for yi, (_, r) in enumerate(top.iterrows()):
-        ax.text(r[xcol] + (0.02 if r[xcol] >= 0 else -0.02), yi,
-                f"q={r['q']:.1e}", va="center",
-                ha="left" if r[xcol] >= 0 else "right", fontsize=8, color="#2B3137")
+        ax.text(q_x, yi, f"{r['q']:.1e}", va="center", ha="left",
+                fontsize=8.2, color="#424A52")
     ax.axvline(0, color="#8A969E", lw=1)
     ax.set_title("Top inversion-shifted SAE dimensions", loc="left", fontsize=14, weight="bold")
     ax.set_xlabel("standardized mean shift")
@@ -215,6 +219,62 @@ def plot_all(inv_x: np.ndarray, inv_lab: pd.DataFrame, sv_x: np.ndarray, sv_lab:
     ax.set_ylabel("raw SAE delta")
 
     fig.savefig(PLOTS / "inversion_sae_specificity.png", bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_associations(inv_x: np.ndarray, inv_lab: pd.DataFrame, coding: pd.DataFrame,
+                      length: pd.DataFrame, af: pd.DataFrame) -> None:
+    PLOTS.mkdir(exist_ok=True)
+    plt.rcParams.update({
+        "font.family": "DejaVu Sans",
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+        "axes.grid": False,
+    })
+
+    fig = plt.figure(figsize=(16, 10), dpi=190)
+    gs = fig.add_gridspec(2, 2, hspace=0.36, wspace=0.30)
+
+    def volcano(ax, df, xcol, title, pos_color="#8E24AA", neg_color="#0B6E99"):
+        sig = df["q"] < 0.05
+        y = -np.log10(df["q"].clip(lower=1e-300))
+        ax.scatter(df.loc[~sig, xcol], y[~sig], s=7, c="#B7C1C8", alpha=0.16, linewidths=0)
+        pos = sig & (df[xcol] > 0)
+        neg = sig & (df[xcol] < 0)
+        ax.scatter(df.loc[pos, xcol], y[pos], s=17, c=pos_color, alpha=0.70, linewidths=0)
+        ax.scatter(df.loc[neg, xcol], y[neg], s=17, c=neg_color, alpha=0.70, linewidths=0)
+        ax.axhline(-np.log10(0.05), color="#8A969E", lw=1)
+        ax.axvline(0, color="#8A969E", lw=1)
+        ax.set_title(title, loc="left", fontsize=14, weight="bold")
+        ax.set_ylabel("-log10 BH q")
+
+    ax = fig.add_subplot(gs[0, 0])
+    volcano(ax, coding, "inv_coding_vs_other_cohen_d", "Coding-disrupting inversion features")
+    ax.set_xlabel("standardized shift: coding - other")
+
+    ax = fig.add_subplot(gs[0, 1])
+    volcano(ax, length, "spearman_log_inv_len", "SAE features associated with inversion length")
+    ax.set_xlabel("Spearman rho with log10(length)")
+
+    ax = fig.add_subplot(gs[1, 0])
+    volcano(ax, af, "spearman_af", "SAE features associated with allele frequency")
+    ax.set_xlabel("Spearman rho with AF")
+
+    ax = fig.add_subplot(gs[1, 1])
+    fidx = int(length.iloc[0]["feature_idx"])
+    colors = {"ins": "#8E24AA", "del": "#0B6E99", "mnp": "#F26A4F"}
+    x = np.log10(inv_lab["inv_len"].clip(lower=1).to_numpy())
+    y = inv_x[:, fidx]
+    for typ, sub in inv_lab.groupby("type_allele"):
+        idx = sub.index.to_numpy()
+        ax.scatter(x[idx], y[idx], s=18, c=colors.get(str(typ), "#606A73"),
+                   alpha=0.48, linewidths=0, label=f"{typ} n={len(idx)}")
+    ax.set_title(f"{length.iloc[0]['feature']} tracks inversion length", loc="left", fontsize=14, weight="bold")
+    ax.set_xlabel("log10 inversion length")
+    ax.set_ylabel("raw SAE delta")
+    ax.legend(frameon=False, loc="best")
+
+    fig.savefig(PLOTS / "inversion_sae_associations.png", bbox_inches="tight")
     plt.close(fig)
 
 
@@ -271,6 +331,7 @@ def main() -> None:
     with open(OUT / "summary.json", "w") as fh:
         json.dump(summary, fh, indent=2)
     plot_all(inv_x, inv_lab, sv_x, sv_lab, inv_vs_sv, coding)
+    plot_associations(inv_x, inv_lab, coding, length, af)
 
     top_inv = inv_vs_sv.head(8)[["feature", "inv_vs_indel_cohen_d", "inv_vs_indel_mean_diff_raw", "q"]]
     top_code = coding.head(8)[["feature", "inv_coding_vs_other_cohen_d", "inv_coding_vs_other_mean_diff_raw", "q"]]
@@ -309,7 +370,7 @@ def main() -> None:
         "## Top Inversion-Length Features",
         top_len.to_markdown(index=False),
         "",
-        "Plot: `plots/inversion_sae_specificity.png`",
+        "Plots: `plots/inversion_sae_specificity.png`, `plots/inversion_sae_associations.png`",
     ]
     (DOCS / "RESULTS_INVERSION_SAE.md").write_text("\n".join(lines) + "\n")
     print(json.dumps(summary, indent=2)[:4000])
