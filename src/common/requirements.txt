@@ -1,0 +1,17 @@
+# Requirements for src/common/analysis.py — the shared analysis harness.
+# Pure CPU, no GPU, no network at runtime. Tested on macOS arm64, Python 3.12.
+#
+# Install into a venv (the project uses uv):
+#   uv venv --python 3.12 .venv
+#   VIRTUAL_ENV="$PWD/.venv" uv pip install -r src/common/requirements.txt
+#
+# Exact versions known-good as of 2026-06-03 (loose pins; newer should work).
+numpy>=2.0          # tested 2.4.6
+scipy>=1.13         # tested 1.17.1
+scikit-learn>=1.6   # tested 1.9.0
+pandas>=2.2         # tested 3.0.3
+matplotlib>=3.8     # tested 3.10.9 (headless Agg backend)
+statsmodels>=0.14   # tested 0.14.6 — BH-FDR (multipletests)
+tabulate>=0.9       # tested 0.10.0 — pandas .to_markdown() in run_report
+umap-learn>=0.5     # OPTIONAL — tested 0.5.12. If it fails to install, the
+                    # harness skips UMAP plots gracefully; everything else works.

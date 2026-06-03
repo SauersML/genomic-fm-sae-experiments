@@ -1,0 +1,42 @@
+# --- secrets / auth (never commit) ---
+*.toml.secret
+.modal.toml
+*token*
+*secret*
+id_ed25519*
+*.pem
+.env
+
+# --- operational infra notes (cloud topology, IPs, SSH) ---
+GPU_RUNBOOK.md
+
+# --- environments ---
+.venv*/
+__pycache__/
+*.pyc
+
+# --- data (all public & reproducible via scripts; not hosted here) ---
+data/
+hf_cache/
+*.vcf.gz
+*.vcf.gz.tbi
+*.vcf.gz.csi
+*.bam
+*.cram
+*.fa
+*.fasta
+*.gtf.gz
+
+# --- logs / agent transcripts / scratch ---
+logs/
+*.output
+*.err
+agents/*.txt
+
+# --- internal ops docs (cloud project IDs / IPs / topology) ---
+docs/INFRA.md
+azure_gpu_quota_requests.sh
+retry_quota_backoff.sh
+watch_upgrade_then_quota.sh
+quota_backoff.log
+quota_batch_result.txt
