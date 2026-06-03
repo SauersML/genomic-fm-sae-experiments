@@ -95,7 +95,7 @@
       },
       "permutation_p": 0.004995004995004995,
       "permutation_observed": 0.58649,
-      "permutation_null_mean": 0.45724229290835855,
+      "permutation_null_mean": 0.49867165,
       "n_sig_features_fdr05": 362,
       "outdir": "/Users/user/bio-interp-experiments/results/aim1_sv/a_coding_disrupting_vs_not"
     },
@@ -189,9 +189,9 @@
           ]
         }
       },
-      "permutation_p": 0.001998001998001998,
+      "permutation_p": 0.01098901098901099,
       "permutation_observed": 0.61015,
-      "permutation_null_mean": 0.48292124143319154,
+      "permutation_null_mean": 0.4991913,
       "n_sig_features_fdr05": 0,
       "outdir": "/Users/user/bio-interp-experiments/results/aim1_sv/c_coding_vs_intergenic_raw"
     },
@@ -285,9 +285,9 @@
           ]
         }
       },
-      "permutation_p": 0.11188811188811189,
+      "permutation_p": 0.2957042957042957,
       "permutation_observed": 0.5469589200174191,
-      "permutation_null_mean": 0.47358023270721966,
+      "permutation_null_mean": 0.5180364348962114,
       "n_sig_features_fdr05": 0,
       "outdir": "/Users/user/bio-interp-experiments/results/aim1_sv/b_coding_vs_intergenic_lenmatched",
       "lenmatch_median_log_svlen": {
@@ -385,9 +385,9 @@
           ]
         }
       },
-      "permutation_p": 0.5184815184815185,
+      "permutation_p": 0.9760239760239761,
       "permutation_observed": 0.36160249739854317,
-      "permutation_null_mean": 0.36391898234454195,
+      "permutation_null_mean": 0.4449479708636836,
       "n_sig_features_fdr05": 0,
       "outdir": "/Users/user/bio-interp-experiments/results/aim1_sv/pair_cds_vs_intronic_lenmatched"
     },
@@ -481,9 +481,9 @@
           ]
         }
       },
-      "permutation_p": 0.013986013986013986,
+      "permutation_p": 0.1968031968031968,
       "permutation_observed": 0.5215379138483447,
-      "permutation_null_mean": 0.32443965433300653,
+      "permutation_null_mean": 0.483250622997508,
       "n_sig_features_fdr05": 0,
       "outdir": "/Users/user/bio-interp-experiments/results/aim1_sv/pair_splice_vs_intergenic_lenmatched"
     },
@@ -577,9 +577,9 @@
           ]
         }
       },
-      "permutation_p": 0.23376623376623376,
+      "permutation_p": 0.5244755244755245,
       "permutation_observed": 0.43204775022956843,
-      "permutation_null_mean": 0.3796555041375675,
+      "permutation_null_mean": 0.43654178145087236,
       "n_sig_features_fdr05": 0,
       "outdir": "/Users/user/bio-interp-experiments/results/aim1_sv/pair_cds_vs_intergenic_lenmatched"
     }

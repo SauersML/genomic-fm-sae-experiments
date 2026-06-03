@@ -1,0 +1,128 @@
+{
+  "sweeps": {
+    "task": "sweeps",
+    "train_n": 400,
+    "test_n": 200,
+    "test_chromosomes": [
+      "chr1",
+      "chr2"
+    ],
+    "class_balance_train": {
+      "0": 200,
+      "1": 200
+    },
+    "class_balance_test": {
+      "0": 100,
+      "1": 100
+    },
+    "feature_preprocessing": "TruncatedSVD(128) fit on train chr3-22 only",
+    "covariates": [
+      "log_length",
+      "gc",
+      "repeat_frac",
+      "mappability",
+      "gene_density"
+    ],
+    "models": {
+      "features": {
+        "auroc": 0.61,
+        "auroc_ci95": [
+          0.5309088709455682,
+          0.6877209733760383
+        ],
+        "auprc": 0.5936313752620327,
+        "permutation": {
+          "p_value": 0.006993006993006993,
+          "null_mean": 0.50217515,
+          "null_std": 0.0432234096656039,
+          "n_perm": 1000
+        }
+      },
+      "covariates": {
+        "auroc": 0.5975,
+        "auroc_ci95": [
+          0.5155739284272061,
+          0.680989645254237
+        ],
+        "auprc": 0.5844947711530006
+      },
+      "residualized": {
+        "auroc": 0.6036,
+        "auroc_ci95": [
+          0.5249348335721021,
+          0.6811551567636287
+        ],
+        "auprc": 0.5928976147288025,
+        "permutation": {
+          "p_value": 0.011988011988011988,
+          "null_mean": 0.5019821,
+          "null_std": 0.043059117003802425,
+          "n_perm": 1000
+        }
+      }
+    }
+  },
+  "introgression": {
+    "task": "introgression",
+    "train_n": 400,
+    "test_n": 200,
+    "test_chromosomes": [
+      "chr1",
+      "chr2"
+    ],
+    "class_balance_train": {
+      "0": 200,
+      "1": 200
+    },
+    "class_balance_test": {
+      "0": 100,
+      "1": 100
+    },
+    "feature_preprocessing": "TruncatedSVD(128) fit on train chr3-22 only",
+    "covariates": [
+      "log_length",
+      "gc",
+      "repeat_frac",
+      "mappability",
+      "gene_density"
+    ],
+    "models": {
+      "features": {
+        "auroc": 0.5356,
+        "auroc_ci95": [
+          0.4515884836027499,
+          0.6149375493321853
+        ],
+        "auprc": 0.5322251518547534,
+        "permutation": {
+          "p_value": 0.1838161838161838,
+          "null_mean": 0.5014711,
+          "null_std": 0.03720859308263602,
+          "n_perm": 1000
+        }
+      },
+      "covariates": {
+        "auroc": 0.5959,
+        "auroc_ci95": [
+          0.5190611200321157,
+          0.6731774954299902
+        ],
+        "auprc": 0.5857524429743619
+      },
+      "residualized": {
+        "auroc": 0.5252,
+        "auroc_ci95": [
+          0.44289569257677647,
+          0.6026938274206883
+        ],
+        "auprc": 0.5194892602582176,
+        "permutation": {
+          "p_value": 0.24475524475524477,
+          "null_mean": 0.4999797,
+          "null_std": 0.03765808929831145,
+          "n_perm": 1000
+        }
+      }
+    }
+  }
+}

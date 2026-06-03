@@ -74,9 +74,12 @@ Returns a nested dict; each metric is `{value, value_ci95: (lo, hi)}`.
 Label-shuffle null for the held-out metric (default AUROC / Spearman).
 - The observed statistic is the out-of-fold metric of one baseline model
   (default: logreg / ridge for the task).
-- When `groups` are given, labels are permuted **at the group level** (one
-  label per group, then shuffled) so the null preserves the group block
-  structure and respects the same leakage control.
+- When `groups` are given and each group has one label, labels are permuted
+  **at the group level** so the null preserves the group block structure. When
+  groups contain mixed labels (e.g. chromosome-held-out SV/popgen analyses),
+  labels are shuffled **within each group** instead; this preserves per-group
+  class/outcome composition while breaking sample-level feature-label
+  association.
 - Returns `observed`, `null_mean`, `null_std`, `n_perm_effective`, and a
   one-sided `p_value = (#{null >= observed} + 1) / (n + 1)`.
 

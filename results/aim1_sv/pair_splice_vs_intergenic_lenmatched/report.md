@@ -24,8 +24,8 @@
 ## Permutation test (label-shuffle null)
 
 - metric: **auroc** (l2_logreg); permute within groups: True
-- observed = **0.522**, null = 0.324 ± 0.084 (n=1000)
-- **p-value = 0.01399**
+- observed = **0.522**, null = 0.483 ± 0.043 (n=1000)
+- **p-value = 0.1968**
 
 ## Differential features (BH-FDR)
 

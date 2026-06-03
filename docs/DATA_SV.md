@@ -198,6 +198,64 @@ python src/common/label_svs.py
 
 ---
 
-## 6. Run summary (filled by `label_svs.py`)
+## 6. Run summary
 
-<<RUN_SUMMARY>>
+Run on 2026-06-03, full GRCh38 wave VCF streamed end-to-end (chr10→…→chrY, 43
+contigs incl. alt/random). No download errors; `sv_filter.err` empty.
+
+**Full table `svs.parquet` / `svs.tsv`: 155,432 SVs** (62 MB / 165 MB). `af` present
+for 100% of rows (AF range 0–1; 1,292 with AF=0, 511 with AF=1). Zero duplicates on
+`(chrom,pos,ref,alt)`.
+
+svtype: `DEL` 89,880 · `INS` 65,552. (No `INV`-flagged records: the wave VCF encodes
+inversions as large balanced indels rather than the `INV` flag, so the `svtype`
+column is INS/DEL by construction; `inv_flag` retained for provenance, all False here.)
+
+`svlen_abs` quantiles: median 141 bp, p90 1,501 bp, p99 ≈ 12.6 kb.
+
+### Class counts (full)
+| `consequence` (7-class) | n | | `consequence_coarse` | n |
+|---|---:|---|---|---:|
+| intronic     | 79,678 | | noncoding_genic | 83,113 |
+| intergenic   | 52,507 | | intergenic      | 52,507 |
+| regulatory   | 14,710 | | regulatory      | 14,710 |
+| splice       |  3,103 | | coding          |  5,102 |
+| exon_noncod  |  2,291 | | | |
+| cds          |  1,999 | | **is_coding_disrupting** | |
+| utr          |  1,144 | | 0 / 1 | 150,330 / 5,102 |
+
+### Pilot `svs_pilot.parquet` / `svs_pilot.tsv`: 4,900 SVs
+Balanced 700 per `consequence` class (all 7 classes hit 700; deduplicated, shuffled,
+seed=42/7). Coarse: noncoding_genic 2,100 · coding 1,400 · regulatory 700 · intergenic
+700. Binary `is_coding_disrupting`: 3,500 / 1,400.
+
+### Leakage check (pilot median `svlen_abs` by class, bp)
+cds 530 · splice 1,693 · regulatory 228 · intergenic 136 · intronic 138 · exon_noncod
+125 · utr 114. **Length is correlated with class** (coding/splice SVs skew larger —
+larger SVs are likelier to hit exons). This is expected and is exactly why
+`svlen_abs`/`svlen_signed` are stored as columns: control for / regress out length
+when evaluating whether the Evo2 SAE feature-delta carries consequence signal beyond
+size. Do **not** let a classifier see length as a free feature without a
+length-matched control.
+
+### Files written
+```
+data/hprc_sv/svs.parquet         62 MB   155,432 rows
+data/hprc_sv/svs.tsv            165 MB
+data/hprc_sv/svs_pilot.parquet  5.1 MB     4,900 rows
+data/hprc_sv/svs_pilot.tsv       12 MB
+data/hprc_sv/sv_raw.tsv         155 MB   (streamed intermediate; regenerable)
+data/annotations/gencode.v44.annotation.gtf.gz, gencode_v44_features.pkl
+data/annotations/encode_ccre_grch38.bed,        encode_ccre_features.pkl
+src/common/{build_gencode_features,build_ccre_features,label_svs,fetch_sv_windows}.py
+```
+
+### Blockers / shortcuts (explicit)
+- **Local disk was full (<3 GB free)** at start → the 2.28 GB VCF was **streamed,
+  never stored**; uv cache cleared to free space. Fully reproducible.
+- **No VEP/AnnotSV** — GENCODE v44 + ENCODE cCRE interval-overlap labels used as the
+  truth proxy (per task allowance). Transparent and leakage-controllable.
+- **ClinVar pathogenic high-confidence subset not added** (optional). Can be layered
+  by intersecting `svs.parquet` coords with ClinVar SV records later.
+- **Reference FASTA not downloaded** (disk + "only if quick"): one-line fetch
+  documented in §4 (`hg38.fa.gz`, contigs match the VCF exactly).

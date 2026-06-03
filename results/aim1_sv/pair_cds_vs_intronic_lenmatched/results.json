@@ -90,11 +90,12 @@
     "metric": "auroc",
     "model": "l2_logreg",
     "observed": 0.36160249739854317,
-    "null_mean": 0.36391898234454195,
-    "null_std": 0.08062833542995584,
+    "null_mean": 0.4449479708636836,
+    "null_std": 0.043801118307953336,
     "n_perm_effective": 1000,
-    "p_value": 0.5184815184815185,
-    "permute_within_groups": true
+    "p_value": 0.9760239760239761,
+    "permute_within_groups": true,
+    "permutation_unit": "within_group"
   },
   "n_significant_features_fdr05": 0,
   "plots": [
