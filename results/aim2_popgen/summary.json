@@ -1,0 +1,70 @@
+{
+  "sweeps": {
+    "auroc": 0.6243333333333334,
+    "auroc_ci95": [
+      0.5798067581947712,
+      0.6805246992110454
+    ],
+    "perm_p": 0.000999000999000999,
+    "beats_chance": true,
+    "perm_significant": true,
+    "survives_confound": true,
+    "real_signal": true,
+    "n_sig_features_fdr05": 3,
+    "notes": "covariate-only AUROC=0.610; residualized AUROC=0.615 (CI lo=0.574)",
+    "covariates": [
+      "log_length",
+      "gc",
+      "repeat_frac",
+      "mappability",
+      "gene_density"
+    ],
+    "n_samples": 600,
+    "n_features": 128,
+    "n_raw_features": 32768,
+    "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+    "n_groups": 22,
+    "n_missing_features": 0,
+    "gc_available": true,
+    "test_chrom_balance": {
+      "chr1:control": 50,
+      "chr1:sweep": 50,
+      "chr2:control": 50,
+      "chr2:sweep": 50
+    }
+  },
+  "introgression": {
+    "auroc": 0.5370777777777778,
+    "auroc_ci95": [
+      0.489381955922865,
+      0.5917747933884296
+    ],
+    "perm_p": 0.11888111888111888,
+    "beats_chance": false,
+    "perm_significant": false,
+    "survives_confound": false,
+    "real_signal": false,
+    "n_sig_features_fdr05": 1,
+    "notes": "covariate-only AUROC=0.605; residualized AUROC=0.494 (CI lo=0.446)",
+    "covariates": [
+      "log_length",
+      "gc",
+      "repeat_frac",
+      "mappability",
+      "gene_density"
+    ],
+    "n_samples": 600,
+    "n_features": 128,
+    "n_raw_features": 32768,
+    "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+    "n_groups": 22,
+    "n_missing_features": 0,
+    "gc_available": true,
+    "test_chrom_balance": {
+      "chr1:control": 50,
+      "chr1:introgression": 50,
+      "chr2:control": 50,
+      "chr2:introgression": 50
+    }
+  }
+}

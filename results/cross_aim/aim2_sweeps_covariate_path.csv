@@ -1,0 +1,6 @@
+covariates_added,feature_plus_covariate_auroc
+none,0.6241888888888889
+gc,0.6242111111111112
+gc_repeat,0.6239888888888889
+gc_repeat_gene,0.6256444444444446
+gc_repeat_gene_mappability,0.6206555555555555

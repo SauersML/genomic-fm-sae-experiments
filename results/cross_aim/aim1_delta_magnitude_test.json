@@ -1,0 +1,8 @@
+{
+  "coding_n": 200,
+  "noncoding_n": 500,
+  "coding_median_delta_norm": 0.07485588639974594,
+  "noncoding_median_delta_norm": 0.042882584035396576,
+  "mannwhitney_u": 63217.0,
+  "p_value_greater": 2.27254197682214e-08
+}

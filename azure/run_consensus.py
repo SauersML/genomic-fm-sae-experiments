@@ -17,6 +17,7 @@ Programmatic:
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import tempfile
 
@@ -35,15 +36,20 @@ def consensus(vcf: str, fasta: str, chrom: str, start1: int, end1: int,
     with tempfile.NamedTemporaryFile("w", suffix=".fa", delete=False) as fh:
         fh.write(faidx)
         ref_fa = fh.name
-    out = subprocess.run(
-        ["bcftools", "consensus",
-         "-f", ref_fa,
-         "-H", str(hap),
-         "-s", sample,
-         "-r", region,
-         vcf],
-        capture_output=True, text=True, check=True).stdout
-    return "".join(out.splitlines()[1:]).upper()
+    try:
+        out = subprocess.run(
+            ["bcftools", "consensus",
+             "-f", ref_fa,
+             "-H", str(hap),
+             "-s", sample,
+             vcf],
+            capture_output=True, text=True, check=True).stdout
+        return "".join(out.splitlines()[1:]).upper()
+    finally:
+        try:
+            os.unlink(ref_fa)
+        except FileNotFoundError:
+            pass
 
 
 def main():

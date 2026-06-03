@@ -392,16 +392,27 @@ def permutation_test(
     null = np.empty(n_perm)
     if groups is not None:
         uniq = np.unique(groups)
-        # one label per group (use first occurrence) so permutation preserves
-        # the group block structure.
-        first_idx = {g: np.where(groups == g)[0][0] for g in uniq}
-        group_label = np.array([y[first_idx[g]] for g in uniq])
-        gpos = {g: i for i, g in enumerate(uniq)}
-        idx_map = np.array([gpos[g] for g in groups])
+        idx_by_group = {g: np.where(groups == g)[0] for g in uniq}
+        group_is_homogeneous = all(np.unique(y[idx]).size == 1 for idx in idx_by_group.values())
+        if group_is_homogeneous:
+            # One label per group: shuffle group labels as blocks.
+            first_idx = {g: idx_by_group[g][0] for g in uniq}
+            group_label = np.array([y[first_idx[g]] for g in uniq])
+            gpos = {g: i for i, g in enumerate(uniq)}
+            idx_map = np.array([gpos[g] for g in groups])
     for i in range(n_perm):
         if groups is not None:
-            perm = rng.permutation(group_label)
-            y_perm = perm[idx_map]
+            if group_is_homogeneous:
+                perm = rng.permutation(group_label)
+                y_perm = perm[idx_map]
+            else:
+                # Mixed-label groups (e.g. chromosome-held-out splits) cannot be
+                # collapsed to one label per group. Shuffle within each group so
+                # the null preserves per-group class/outcome composition while
+                # breaking sample-level feature-label association.
+                y_perm = y.copy()
+                for idx in idx_by_group.values():
+                    y_perm[idx] = rng.permutation(y_perm[idx])
         else:
             y_perm = rng.permutation(y)
         try:
@@ -420,6 +431,10 @@ def permutation_test(
         "n_perm_effective": int(null.size),
         "p_value": float(p),
         "permute_within_groups": groups is not None,
+        "permutation_unit": (
+            "group" if groups is not None and group_is_homogeneous else
+            ("within_group" if groups is not None else "sample")
+        ),
     }
 
 

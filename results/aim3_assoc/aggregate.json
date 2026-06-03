@@ -1,0 +1,555 @@
+{
+  "all": {
+    "n_genes": 8,
+    "n_cv_signal": 8,
+    "n_beyond_ancestry": 8,
+    "n_beyond_altcount": 8,
+    "per_gene": [
+      {
+        "gene": "C17orf97|ENSG00000187624",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.737229023220398,
+        "cv_features_spearman_ci95": [
+          0.6870080675257608,
+          0.7801879194670324
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.7367439600871103,
+        "cv_resid_ancestry_ci95": [
+          0.6885563983902084,
+          0.773988190844143
+        ],
+        "cv_resid_altcount_spearman": 0.680686207063687,
+        "cv_ancestry_only_spearman": 0.05118664819092494,
+        "cv_altcount_only_spearman": 0.7266204560542994,
+        "heldout_test_features_spearman": 0.6189919377440332,
+        "heldout_test_features_ci95": [
+          0.46662520902310134,
+          0.7247443423053528
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": 0.23927907526822614,
+        "heldout_test_altcount_only_spearman": 0.7210734823853905,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "ERAP2|ENSG00000164308",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.6048709634004101,
+        "cv_features_spearman_ci95": [
+          0.5124538097199776,
+          0.6840975432171661
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.5700947549085625,
+        "cv_resid_ancestry_ci95": [
+          0.4792988523991953,
+          0.6555219945691295
+        ],
+        "cv_resid_altcount_spearman": 0.4571965572039347,
+        "cv_ancestry_only_spearman": -0.141103789066899,
+        "cv_altcount_only_spearman": 0.5800622343594315,
+        "heldout_test_features_spearman": 0.33645621808483145,
+        "heldout_test_features_ci95": [
+          0.12356135081850711,
+          0.5278451360721712
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": -0.09926925664605066,
+        "heldout_test_altcount_only_spearman": 0.5735931684482322,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "GSTM1|ENSG00000134184",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.13935248373266057,
+        "cv_features_spearman_ci95": [
+          0.010501895946883284,
+          0.2679939403434467
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.23293154153486087,
+        "cv_resid_ancestry_ci95": [
+          0.11847977239229551,
+          0.3538726451954121
+        ],
+        "cv_resid_altcount_spearman": 0.1366278038522114,
+        "cv_ancestry_only_spearman": -0.10034800042083811,
+        "cv_altcount_only_spearman": 0.13873315684850587,
+        "heldout_test_features_spearman": 0.16872606179478664,
+        "heldout_test_features_ci95": [
+          0.0067545740341812864,
+          0.31980115104938006
+        ],
+        "heldout_test_perm_p": 0.014925373134328358,
+        "heldout_test_ancestry_only_spearman": 0.09697401371781826,
+        "heldout_test_altcount_only_spearman": 0.16458408577810946,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "PEX6|ENSG00000124587",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7954599654040622,
+        "cv_features_spearman_ci95": [
+          0.7268474877482171,
+          0.8496952479005164
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.8021428943002386,
+        "cv_resid_ancestry_ci95": [
+          0.7445703894297643,
+          0.8511164349954597
+        ],
+        "cv_resid_altcount_spearman": 0.6814593596137279,
+        "cv_ancestry_only_spearman": -0.13508789911334457,
+        "cv_altcount_only_spearman": 0.6476879302711737,
+        "heldout_test_features_spearman": 0.6490192775555943,
+        "heldout_test_features_ci95": [
+          0.4560444235779727,
+          0.7767625969225996
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": -0.07287396297137823,
+        "heldout_test_altcount_only_spearman": 0.5821747718695764,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "POMZP3|ENSG00000146707",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7544667384638476,
+        "cv_features_spearman_ci95": [
+          0.7000653716319349,
+          0.8018422300743481
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.7674325280383573,
+        "cv_resid_ancestry_ci95": [
+          0.7157967021557926,
+          0.8084622199188132
+        ],
+        "cv_resid_altcount_spearman": 0.7508777152709928,
+        "cv_ancestry_only_spearman": -0.04827565108800395,
+        "cv_altcount_only_spearman": 0.579546727475382,
+        "heldout_test_features_spearman": 0.667485376458892,
+        "heldout_test_features_ci95": [
+          0.5124762331301929,
+          0.7751889631967913
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": 0.02123099708614956,
+        "heldout_test_altcount_only_spearman": 0.291148483450281,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "RPS26|ENSG00000197728",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.8249140146833573,
+        "cv_features_spearman_ci95": [
+          0.7744269471577341,
+          0.8613798152616916
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.8176460816828702,
+        "cv_resid_ancestry_ci95": [
+          0.760326971983596,
+          0.8535987140806504
+        ],
+        "cv_resid_altcount_spearman": 0.7794838237817967,
+        "cv_ancestry_only_spearman": 0.04864588221382474,
+        "cv_altcount_only_spearman": 0.49331375229088853,
+        "heldout_test_features_spearman": 0.7522124333399476,
+        "heldout_test_features_ci95": [
+          0.614426582986747,
+          0.8341839214091585
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": 0.2450171825888071,
+        "heldout_test_altcount_only_spearman": 0.655074369682756,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "SLFN5|ENSG00000166750",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7263571183861677,
+        "cv_features_spearman_ci95": [
+          0.6583589691294975,
+          0.7815277311619425
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.7131992897360704,
+        "cv_resid_ancestry_ci95": [
+          0.6416811321681971,
+          0.7728021432282322
+        ],
+        "cv_resid_altcount_spearman": 0.60203565663772,
+        "cv_ancestry_only_spearman": -0.06319684347706205,
+        "cv_altcount_only_spearman": 0.7559635339791776,
+        "heldout_test_features_spearman": 0.7812526257686937,
+        "heldout_test_features_ci95": [
+          0.6742426335029047,
+          0.8470647046341404
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": 0.22435999623471564,
+        "heldout_test_altcount_only_spearman": 0.7978955948097222,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "ZNF266|ENSG00000174652",
+        "n": 255,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7774403842805967,
+        "cv_features_spearman_ci95": [
+          0.700004824705593,
+          0.82804537637835
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.001996007984031936,
+        "cv_resid_ancestry_spearman": 0.7753883889305919,
+        "cv_resid_ancestry_ci95": [
+          0.6967745455574967,
+          0.8253699088699207
+        ],
+        "cv_resid_altcount_spearman": 0.6446245591284167,
+        "cv_ancestry_only_spearman": -0.006784887805802764,
+        "cv_altcount_only_spearman": 0.7557011010382485,
+        "heldout_test_features_spearman": 0.7325066107055871,
+        "heldout_test_features_ci95": [
+          0.5786629662767762,
+          0.8437373379858494
+        ],
+        "heldout_test_perm_p": 0.004975124378109453,
+        "heldout_test_ancestry_only_spearman": -0.05565964100963534,
+        "heldout_test_altcount_only_spearman": 0.7347504629765624,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      }
+    ]
+  },
+  "eur_only": {
+    "n_genes": 8,
+    "n_cv_signal": 7,
+    "n_beyond_ancestry": 8,
+    "n_beyond_altcount": 8,
+    "per_gene": [
+      {
+        "gene": "C17orf97|ENSG00000187624",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.700579330099313,
+        "cv_features_spearman_ci95": [
+          0.6309557890245686,
+          0.7513333239092982
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.7094005761647159,
+        "cv_resid_ancestry_ci95": [
+          0.6440505685341846,
+          0.7615143576478794
+        ],
+        "cv_resid_altcount_spearman": 0.6906782628404461,
+        "cv_ancestry_only_spearman": -0.11531881021899704,
+        "cv_altcount_only_spearman": 0.7311340933325426,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "ERAP2|ENSG00000164308",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.6411794889709862,
+        "cv_features_spearman_ci95": [
+          0.5406470787384468,
+          0.7173962937383886
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.6627349468899759,
+        "cv_resid_ancestry_ci95": [
+          0.5699873347695655,
+          0.7446987436785769
+        ],
+        "cv_resid_altcount_spearman": 0.4266166340250384,
+        "cv_ancestry_only_spearman": -0.1148168747532986,
+        "cv_altcount_only_spearman": 0.6329135808621533,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "GSTM1|ENSG00000134184",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.048434576661652455,
+        "cv_features_spearman_ci95": [
+          -0.08039902894536888,
+          0.17050746151445553
+        ],
+        "cv_perm_p": 0.007984031936127744,
+        "cv_perm_q_fdr": 0.007984031936127744,
+        "cv_resid_ancestry_spearman": 0.16035353751701506,
+        "cv_resid_ancestry_ci95": [
+          0.018319988851512224,
+          0.27961927305461914
+        ],
+        "cv_resid_altcount_spearman": 0.087419960441002,
+        "cv_ancestry_only_spearman": -0.16281764685401015,
+        "cv_altcount_only_spearman": 0.09020106362304162,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": false,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "PEX6|ENSG00000124587",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.8151343256188094,
+        "cv_features_spearman_ci95": [
+          0.7373866999555064,
+          0.869503694965498
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.8222132556278433,
+        "cv_resid_ancestry_ci95": [
+          0.7478111828430855,
+          0.8786271043544026
+        ],
+        "cv_resid_altcount_spearman": 0.7172077741540062,
+        "cv_ancestry_only_spearman": -0.16356330064074232,
+        "cv_altcount_only_spearman": 0.7883321162703256,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "POMZP3|ENSG00000146707",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7629272669994381,
+        "cv_features_spearman_ci95": [
+          0.7076875230215737,
+          0.8069697710237383
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.7819495071180924,
+        "cv_resid_ancestry_ci95": [
+          0.7362064055210505,
+          0.8230212042941384
+        ],
+        "cv_resid_altcount_spearman": 0.7686181085912341,
+        "cv_ancestry_only_spearman": -0.10601401754882141,
+        "cv_altcount_only_spearman": 0.6289349677970197,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "RPS26|ENSG00000197728",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7836468849155012,
+        "cv_features_spearman_ci95": [
+          0.7300570115111903,
+          0.8246242899349997
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.7919267916255729,
+        "cv_resid_ancestry_ci95": [
+          0.7348975080230847,
+          0.8338639744686239
+        ],
+        "cv_resid_altcount_spearman": 0.6294075701023685,
+        "cv_ancestry_only_spearman": -0.09712900034376909,
+        "cv_altcount_only_spearman": 0.6421451996303511,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "SLFN5|ENSG00000166750",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7251358909826117,
+        "cv_features_spearman_ci95": [
+          0.6410382460266413,
+          0.7910752784801723
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.7363583188591251,
+        "cv_resid_ancestry_ci95": [
+          0.6548601002657194,
+          0.8001656380964159
+        ],
+        "cv_resid_altcount_spearman": 0.6693752622832809,
+        "cv_ancestry_only_spearman": -0.16149549222290632,
+        "cv_altcount_only_spearman": 0.7566509485268841,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      },
+      {
+        "gene": "ZNF266|ENSG00000174652",
+        "n": 207,
+        "n_features": 128,
+        "n_raw_features": 32768,
+        "feature_preprocessing": "unsupervised_truncated_svd_128_from_32768",
+        "cv_features_spearman": 0.7837464734652649,
+        "cv_features_spearman_ci95": [
+          0.7126794232770168,
+          0.8318856305978359
+        ],
+        "cv_perm_p": 0.001996007984031936,
+        "cv_perm_q_fdr": 0.002281151981750784,
+        "cv_resid_ancestry_spearman": 0.7766201091873698,
+        "cv_resid_ancestry_ci95": [
+          0.7020284850099906,
+          0.829315195853944
+        ],
+        "cv_resid_altcount_spearman": 0.540267742988834,
+        "cv_ancestry_only_spearman": -0.1357911491858329,
+        "cv_altcount_only_spearman": 0.761397648408438,
+        "heldout_test_features_spearman": null,
+        "heldout_test_features_ci95": null,
+        "heldout_test_perm_p": null,
+        "heldout_test_ancestry_only_spearman": null,
+        "heldout_test_altcount_only_spearman": null,
+        "flags": {
+          "cv_signal": true,
+          "beyond_ancestry": true,
+          "beyond_altcount": true
+        }
+      }
+    ]
+  },
+  "combine": "mean"
+}
