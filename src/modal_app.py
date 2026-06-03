@@ -42,30 +42,21 @@ app = modal.App(APP_NAME)
 vol = modal.Volume.from_name("bio-interp-hf-cache", create_if_missing=True)
 
 # ---- Image: torch + evo2 (StripedHyena2/vortex) + transformers + InterPLM deps.
-# evo2 "light install" (7B): flash-attn then pip install evo2. We pin a CUDA
-# 12.x devel base so flash-attn / hyena kernels build, and keep torch from the
-# evo2 wheels' requirement set. A100 (Ampere) runs 7B in bf16; no transformer-
-# engine / FP8 needed.
+# Use a prebuilt FlashAttention wheel matching torch 2.6 / py3.11. Source-building
+# flash-attn on Modal previously stalled long enough to be a bad fallback path.
+# Torch 2.6 + flash-attn wheels hit a known binary-compatibility failure in this
+# image family. Use the Torch 2.7/CUDA12 wheel pair instead.
 image = (
     modal.Image.from_registry(
-        "nvidia/cuda:12.4.1-devel-ubuntu22.04", add_python="3.11"
+        "nvidia/cuda:12.6.3-devel-ubuntu22.04", add_python="3.11"
     )
     .apt_install("git", "build-essential", "ninja-build")
     .env({"HF_HOME": HF_HOME, "TOKENIZERS_PARALLELISM": "false"})
-    .pip_install(
-        "torch==2.6.0",
-        "numpy<2",
-        "huggingface_hub",
-        "transformers==4.44.2",
-        "einops",
-        "packaging",
-        "wheel",
-    )
-    # flash-attn must build against the installed torch; isolate disabled.
     .run_commands(
-        "pip install flash-attn==2.6.3 --no-build-isolation",
+        "pip install torch==2.7.0 --index-url https://download.pytorch.org/whl/cu126",
+        "pip install https://huggingface.co/strangertoolshf/flash_attention_2_wheelhouse/resolve/main/wheelhouse-flash_attn-2.8.3/linux_x86_64/torch2.7/cu12/abiFALSE/cp311/flash_attn-2.8.3%2Bcu12torch2.7cxx11abiFALSE-cp311-cp311-linux_x86_64.whl",
+        "pip install 'numpy<2' huggingface_hub transformers==4.44.2 einops packaging wheel evo2==0.5.3",
     )
-    .pip_install("evo2")
     # mount our backend-agnostic extraction libs
     .add_local_dir(
         "/Users/user/bio-interp-experiments/src",
@@ -119,7 +110,7 @@ def download():
 # Feature functions (batched) — return numpy arrays
 # --------------------------------------------------------------------------- #
 @app.function(image=image, volumes={CACHE_DIR: vol}, gpu=GPU,
-              timeout=60 * 30)
+              timeout=60 * 30, max_containers=4)
 def evo2_features(seqs: list[str], pool: str = "mean"):
     """DNA seqs -> [N, 32768] pooled Evo2 layer-26 SAE feature matrix."""
     import os
@@ -129,7 +120,7 @@ def evo2_features(seqs: list[str], pool: str = "mean"):
 
 
 @app.function(image=image, volumes={CACHE_DIR: vol}, gpu=GPU,
-              timeout=60 * 30)
+              timeout=60 * 30, max_containers=4)
 def evo2_feature_deltas(pairs: list[tuple[str, str]]):
     """(ref,alt) pairs -> {'delta_mean':[N,32768], 'delta_max':[N,32768]}."""
     import os
@@ -223,3 +214,159 @@ def main():
     import json
     res = smoke.remote()
     print(json.dumps(res, indent=2))
+
+
+@app.local_entrypoint()
+def aim3_embed(
+    manifest: str = "data/aim3_assoc/seq_manifest.jsonl",
+    outdir: str = "data/aim3_assoc",
+    batch_size: int = 16,
+    limit: int = 0,
+):
+    """Embed Aim-3 seq_manifest rows on Modal and write outputs locally."""
+    import json
+    import time
+    from pathlib import Path
+
+    import numpy as np
+
+    root = Path("/Users/user/bio-interp-experiments")
+    mpath = root / manifest
+    odir = root / outdir
+
+    ids: list[str] = []
+    seqs: list[str] = []
+    with mpath.open() as f:
+        for line in f:
+            if not line.strip():
+                continue
+            rec = json.loads(line)
+            ids.append(str(rec["id"]))
+            seqs.append(str(rec["seq"]).upper())
+    if limit:
+        ids = ids[:limit]
+        seqs = seqs[:limit]
+    if not ids:
+        raise ValueError(f"empty manifest: {mpath}")
+
+    batches = [seqs[i:i + batch_size] for i in range(0, len(seqs), batch_size)]
+    print(f"[modal-aim3] rows={len(ids)} batches={len(batches)} batch={batch_size}",
+          flush=True)
+
+    rows: list[np.ndarray] = []
+    t0 = time.time()
+    for i, arr in enumerate(evo2_features.map(batches), start=1):
+        a = np.asarray(arr, dtype=np.float32)
+        if a.ndim != 2 or a.shape[1] != 32768:
+            raise ValueError(f"bad batch shape at {i}: {a.shape}")
+        if np.isnan(a).any():
+            raise ValueError(f"NaN in batch {i}")
+        rows.append(a)
+        done = sum(x.shape[0] for x in rows)
+        print(f"[modal-aim3] batch {i}/{len(batches)} rows={done}/{len(ids)} "
+              f"elapsed={time.time() - t0:.1f}s", flush=True)
+
+    X = np.concatenate(rows, axis=0)
+    if X.shape != (len(ids), 32768):
+        raise ValueError(f"final shape {X.shape} != ({len(ids)}, 32768)")
+    if (np.abs(X).sum(axis=1) == 0).any():
+        raise ValueError("one or more all-zero feature rows")
+
+    odir.mkdir(parents=True, exist_ok=True)
+    np.save(odir / "features.npy", X)
+    with (odir / "ids.txt").open("w") as f:
+        for rid in ids:
+            f.write(rid + "\n")
+    meta = {
+        "backend": "modal",
+        "model": "evo2_7b",
+        "sae": "Goodfire/Evo-2-Layer-26-Mixed",
+        "pool": "mean",
+        "n": int(X.shape[0]),
+        "dim": int(X.shape[1]),
+        "batch_size": batch_size,
+        "seconds": round(time.time() - t0, 1),
+        "source_manifest": str(mpath),
+    }
+    with (odir / "meta.json").open("w") as f:
+        json.dump(meta, f, indent=2)
+    (odir / "FEATURES_READY").write_text(json.dumps(meta) + "\n")
+    print(f"[modal-aim3] DONE shape={X.shape} meta={meta}", flush=True)
+
+
+@app.local_entrypoint()
+def embed_deltas(
+    manifest: str = "data/inversions/seq_pairs.jsonl",
+    outdir: str = "data/inversions",
+    batch_size: int = 8,
+    limit: int = 0,
+):
+    """Embed ref/alt sequence-pair deltas on Modal and write mean deltas locally."""
+    import json
+    import time
+    from pathlib import Path
+
+    import numpy as np
+
+    root = Path("/Users/user/bio-interp-experiments")
+    mpath = root / manifest
+    odir = root / outdir
+
+    ids: list[str] = []
+    pairs: list[tuple[str, str]] = []
+    with mpath.open() as f:
+        for line in f:
+            if not line.strip():
+                continue
+            rec = json.loads(line)
+            ids.append(str(rec["id"]))
+            pairs.append((str(rec["ref_seq"]).upper(), str(rec["alt_seq"]).upper()))
+    if limit:
+        ids = ids[:limit]
+        pairs = pairs[:limit]
+    if not ids:
+        raise ValueError(f"empty manifest: {mpath}")
+
+    batches = [pairs[i:i + batch_size] for i in range(0, len(pairs), batch_size)]
+    print(f"[modal-deltas] rows={len(ids)} batches={len(batches)} batch={batch_size}",
+          flush=True)
+
+    rows: list[np.ndarray] = []
+    t0 = time.time()
+    for i, out in enumerate(evo2_feature_deltas.map(batches), start=1):
+        a = np.asarray(out["delta_mean"], dtype=np.float32)
+        if a.ndim != 2 or a.shape[1] != 32768:
+            raise ValueError(f"bad batch shape at {i}: {a.shape}")
+        if np.isnan(a).any():
+            raise ValueError(f"NaN in batch {i}")
+        rows.append(a)
+        done = sum(x.shape[0] for x in rows)
+        print(f"[modal-deltas] batch {i}/{len(batches)} rows={done}/{len(ids)} "
+              f"elapsed={time.time() - t0:.1f}s", flush=True)
+
+    X = np.concatenate(rows, axis=0)
+    if X.shape != (len(ids), 32768):
+        raise ValueError(f"final shape {X.shape} != ({len(ids)}, 32768)")
+    if (np.abs(X).sum(axis=1) == 0).any():
+        raise ValueError("one or more all-zero feature rows")
+
+    odir.mkdir(parents=True, exist_ok=True)
+    np.save(odir / "features.npy", X)
+    with (odir / "ids.txt").open("w") as f:
+        for rid in ids:
+            f.write(rid + "\n")
+    meta = {
+        "backend": "modal",
+        "model": "evo2_7b",
+        "sae": "Goodfire/Evo-2-Layer-26-Mixed",
+        "pool": "mean_delta",
+        "n": int(X.shape[0]),
+        "dim": int(X.shape[1]),
+        "batch_size": batch_size,
+        "seconds": round(time.time() - t0, 1),
+        "source_manifest": str(mpath),
+    }
+    with (odir / "meta.json").open("w") as f:
+        json.dump(meta, f, indent=2)
+    (odir / "FEATURES_READY").write_text(json.dumps(meta) + "\n")
+    print(f"[modal-deltas] DONE shape={X.shape} meta={meta}", flush=True)

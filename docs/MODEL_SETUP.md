@@ -127,11 +127,36 @@ TE is only *required* for the 20B/40B variants and only numerically validated on
 Hopper. On the L4's Ada GPU, FP8 via TE is not a supported path for 7B, so bf16
 on a bigger GPU was always the right call — Modal provides it.)
 
-Smoke numbers (A100-80GB, batch=1, no_grad): _<filled by smoke run; see
-`/cache/smoke/smoke_results.json` in the volume>_
+**Modal build status (honest): NOT yet validated end-to-end.** The Modal image
+build for `download()`/`smoke()` **failed at the flash-attn link step** — every
+CUDA `.o` compiled fine, but flash-attn's `setup.py` invoked `clang++` for the
+final `.so` link and the CUDA `devel` base (with Modal `add_python`) has no
+clang installed:
 
-- Evo2 1kb DNA: peak GPU mem = __ GB · tokens/sec = __ · feat shape [L, 32768]
-- ESM2 200aa: peak GPU mem = __ GB · feat shape [L, 10240]
+```
+error: command 'clang++' failed: No such file or directory
+ERROR: Failed building wheel for flash-attn
+```
+
+So `download()` never populated the volume and `smoke()` did not run — **no
+A100 mem/throughput numbers were captured by this agent.** This is a packaging
+issue, not a model/algorithm problem. The extraction libs (`src/evo2/extract.py`,
+`src/esm2/extract.py`) are syntactically valid and used by the Azure backend,
+but were NOT executed end-to-end on Modal.
+
+Fix (one-liner) for whoever resumes Modal: force the GNU compiler for the
+flash-attn build, e.g. add `clang` to the image (`.apt_install("clang")`) OR set
+`.run_commands("CC=gcc CXX=g++ pip install flash-attn==2.6.3 --no-build-isolation")`.
+Arc also publishes prebuilt evo2/flash-attn paths; using a torch+CUDA base that
+matches a prebuilt flash-attn wheel avoids the source compile entirely.
+
+Smoke numbers (A100-80GB, batch=1, no_grad): _not captured — see build status above._
+
+- Evo2 1kb DNA: peak GPU mem = (pending) · tokens/sec = (pending) · feat shape [L, 32768]
+- ESM2 200aa: peak GPU mem = (pending) · feat shape [L, 10240]
+
+> Note: the Azure A100 box (`a100box`) is now the primary backend and reuses
+> these same extraction modules; capture the live numbers there.
 
 ---
 
