@@ -46,3 +46,29 @@ CI/FDR rule, not just the sign of residualized Spearman.
 
 The full generated harness report is in `results/aim3_assoc/report.md`.
 Independent audit: `agents/aim3_adversarial_audit.md`.
+
+---
+
+## CORRECTION (improved baselines) — the positive does not survive
+
+The original verdict above used weak baselines (ancestry EUR/AFR dummy + ALT-allele-burden).
+Re-run with **proper** baselines — a **cis-genotype ridge** (RidgeCV on ±3 kb dosages, the same
+window the SAE saw) and **genotype PCs** (5 PCs from ±50 kb dosages); expression was already
+PEER-corrected — held out by individual. Per-gene held-out Spearman:
+
+| gene | SAE | cis-genotype ±3kb | ALT-burden | genotype PCs |
+|---|---:|---:|---:|---:|
+| PEX6 | 0.78 | 0.76 | 0.58 | 0.68 |
+| SLFN5 | 0.72 | 0.79 | 0.80 | 0.71 |
+| C17orf97 | 0.71 | 0.83 | 0.72 | 0.61 |
+| RPS26 | 0.71 | 0.81 | 0.66 | 0.84 |
+| ZNF266 | 0.68 | 0.74 | 0.73 | 0.78 |
+| POMZP3 | 0.65 | 0.79 | 0.29 | 0.69 |
+| ERAP2 | 0.63 | 0.63 | 0.57 | 0.85 |
+| GSTM1 | 0.16 | 0.16 | 0.16 | 0.18 |
+
+**Corrected verdict:** the cis-genotype ridge beats or ties the SAE features for ~7/8 genes
+(only PEX6 nudges ahead, 0.78 vs 0.76, within noise at n_test=90), and genotype PCs alone reach
+0.84–0.85 for RPS26/ERAP2 (population structure). **Evo2-SAE features do not add value over a
+standard cis-genotype eQTL model.** The earlier "promising positive" was an artifact of weak
+baselines. Plot: `plots/aim3_baselines.png`.

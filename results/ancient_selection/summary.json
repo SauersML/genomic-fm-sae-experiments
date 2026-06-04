@@ -1,0 +1,10 @@
+{
+  "n": 5000,
+  "reg_features_spearman": -0.3642118093917892,
+  "reg_covariate_spearman": -0.47978870903262366,
+  "reg_residualized_spearman": 0.26915265286629403,
+  "reg_perm_p": 0.004975124378109453,
+  "clf_features_auroc": 0.07329291061685428,
+  "clf_covariate_auroc": 0.24495169213479073,
+  "clf_matched_auroc": 0.0755069241689658
+}
